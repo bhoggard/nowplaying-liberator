@@ -1,10 +1,14 @@
 # nowplaying
 
-FIXME
+One-page clojure application to show what is playing on my favorite classical stations. See it on heroku [here](http://nowplaying.tristanmedia.com/).
+
+This version uses liberator to provide an API for jQuery to load the latest feeds and refresh the feed.
+
+The all-clojure version is [here](https://github.com/bhoggard/nowplaying).
 
 ## Prerequisites
 
-You will need [Leiningen][1] 1.7.0 or above installed.
+You will need [Leiningen][1] 2.0.0 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
@@ -16,4 +20,6 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 Barry Hoggard
+
+MIT License
