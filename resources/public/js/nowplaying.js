@@ -1,12 +1,18 @@
-function counterstreamData() {
-  return {
-    title: 'The People United Will Never Be Defeated!',
-    composer: 'Frederic Rzewski'
-  }
+function getCounterstream() {
+  $.get("/counterstream", renderCountstream);
 }
+
+function renderCountstream(data) {
+  renderSection('#counterstream', data);
+}
+
+function renderSection(id, data) {
+  $(id.concat(' .title')).text(data.title);
+  $(id.concat(' .composer')).text(data.composer);
+}
+
 function renderPieces() {
-  var counterstream = counterstreamData();
-  $('#counterstream .title').text(counterstream.title);
-  $('#counterstream .composer').text(counterstream.composer);
+  getCounterstream();
 }
+
 $(renderPieces());
