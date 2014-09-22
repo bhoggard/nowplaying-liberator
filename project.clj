@@ -9,12 +9,14 @@
                  [compojure "1.1.6"]
                  [liberator "0.12.1"]
                  [cheshire "5.3.1"]
-                 [ring-server "0.3.1"]]
+                 [ring-server "0.3.1"]
+                 [ring/ring-jetty-adapter "1.3.0"]]
   :plugins [[lein-ring "0.8.10"]]
   :ring {:handler nowplaying.handler/app
          :init nowplaying.handler/init
          :destroy nowplaying.handler/destroy}
-  :aot :all
+  :uberjar-name "nowplaying-standalone.jar"
+  :main ^:skip-aot nowplaying.handler/main
   :profiles
   {:production
    {:ring

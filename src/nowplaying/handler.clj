@@ -22,4 +22,6 @@
       (handler/site)
       (wrap-base-url)))
 
-
+(defn -main []
+  (let [port (Integer. (or (System/getenv "PORT") 8080))]
+  (run-jetty app {:port port})))
