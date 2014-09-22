@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Now Playing</title>
+  <meta name="description" content="one-page clojure application to show what's playing on my favorite classical stations">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css">
+</head>
+<body>
+  <h1>Now Playing</h1>
+
+  <div id="counterstream">
+    <h2><a target="_blank" href="http://counterstreamradio.net/">Counterstream Radio</a></h2>
+    <p class="title"></p>
+    <p class="composer"></p>
+  </div>
+
+  <div id="q2">
+    <h2><a target="_blank" href="http://q2music.org/">Q2 Music</a></h2>
+    <p class="title"></p>
+    <p class="composer"></p>
+  </div>
+
+  <div id="second-inversion">
+    <h2><a target="_blank" href="http://secondinversion.org/">Second Inversion</a></h2>
+    <p class="title"></p>
+    <p class="composer"></p>
+  </div>
+
+  <div id="yle">
+    <h2><a target="_blank" href="http://yle.fi/aihe/klassinen">Yle Klassinen</a></h2>
+    <p class="title"></p>
+    <p class="composer"></p>
+  </div>
+
+  <div id="source-code">
+    <a href="https://github.com/bhoggard/nowplaying-liberator">source code</a>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+  function counterstreamData() {
+    return {
+      title: 'The People United Will Never Be Defeated!',
+      composer: 'Frederic Rzewski'
+    }
+  }
+  function renderPieces() {
+    var counterstream = counterstreamData();
+    $('#counterstream .title').text(counterstream.title);
+    $('#counterstream .composer').text(counterstream.composer);
+  }
+  $(renderPieces());
+  </script>
+</body>
