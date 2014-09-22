@@ -5,7 +5,8 @@
             [hiccup.middleware :refer [wrap-base-url]]
             [compojure.handler :as handler]
             [compojure.route :as route]
-            [nowplaying.routes.home :refer [home-routes]]))
+            [nowplaying.routes.home :refer [home-routes]]
+            [ring.adapter.jetty :refer [run-jetty]]))
 
 (defn init []
   (println "nowplaying is starting"))
