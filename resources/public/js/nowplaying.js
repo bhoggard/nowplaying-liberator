@@ -1,9 +1,17 @@
 function getCounterstream() {
-  $.get("/counterstream", renderCountstream);
+  $.get("/counterstream", renderCounterstream);
 }
 
-function renderCountstream(data) {
+function renderCounterstream(data) {
   renderSection('#counterstream', data);
+}
+
+function getEarwaves() {
+  $.get("/earwaves", renderEarwaves);
+}
+
+function renderEarwaves(data) {
+  renderSection('#earwaves', data);
 }
 
 function getQ2() {
@@ -37,6 +45,7 @@ function renderSection(id, data) {
 
 function renderPieces() {
   getCounterstream();
+  getEarwaves();
   getQ2();
   getSecondInversion();
   getYLE();

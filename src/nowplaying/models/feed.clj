@@ -2,8 +2,9 @@
   (:require [clojure.data.json :as json]
             [clojure.xml :as xml]))
 
-(def q2-url "http://www.wqxr.org/api/whats_on/q2/2/")
 (def counterstream-url "http://www.live365.com/pls/front?handler=playlist&cmd=view&viewType=xml&handle=amcenter&maxEntries=1")
+(def earwaves-url "http://api.somafm.com/recent/earwaves.tre.xml")
+(def q2-url "http://www.wqxr.org/api/whats_on/q2/2/")
 (def second-inversion-url "http://filesource.abacast.com/king/TRE/inversion2.xml")
 (def yle-url "http://yle.fi/radiomanint/LiveXML/r17/item(0).xml")
 
@@ -47,6 +48,21 @@
   (-> counterstream-url xml/parse translate-counterstream))
 
 (defn counterstream [] (wrap-feed-errors counterstream-raw))
+
+(defn translate-earwaves
+  "translate parsed XML into title and composer for Earwaves"
+  [data]
+  (let [entry (data :content)
+        title (-> entry (get 2) :content first)
+        composer (-> entry (get 1) :content first)]
+    (hash-map :title title :composer composer)))
+ 
+(defn earwaves-raw
+  "get feed for Earwaves"
+  []
+  (-> earwaves-url xml/parse translate-earwaves))
+
+(defn earwaves [] (wrap-feed-errors earwaves-raw))
 
 (defn translate-yle
   "translate parsed XML into title and composer for YLE Klassinen"

@@ -14,6 +14,11 @@
     (is (= (:title data) "Serenade"))
     (is (= (:composer data) "Edward T. Cone"))))
 
+  (testing "earwaves parsing"
+  (let [data (translate-earwaves (xml/parse "test/data/earwaves.xml"))]
+    (is (= (:title data) "A Traveller's Dream Journal- Setting A"))
+    (is (= (:composer data) "David Behrman"))))
+
   (testing "second inversion parsing"
   (let [data (translate-second-inversion (xml/parse "test/data/second-inversion.xml"))]
     (is (= (:title data) "Violin Sonata No.1"))

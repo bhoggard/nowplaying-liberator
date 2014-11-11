@@ -11,6 +11,11 @@
   :handle-ok (fn [_] (generate-string (feed/counterstream)))
   :available-media-types ["application/json"])
 
+(defresource earwaves-json
+  :allowed-methods [:get]
+  :handle-ok (fn [_] (generate-string (feed/earwaves)))
+  :available-media-types ["application/json"])
+
 (defresource q2-json
   :allowed-methods [:get]
   :handle-ok (fn [_] (generate-string (feed/q2)))
@@ -29,6 +34,7 @@
 (defroutes home-routes
   (GET "/" request (io/resource "public/index.html"))
   (GET "/counterstream" request counterstream-json)
+  (GET "/earwaves" request earwaves-json)
   (GET "/second-inversion" request second-inversion-json)
   (GET "/q2" request q2-json)
   (GET "/yle" request yle-json))
