@@ -16,7 +16,7 @@
          :init nowplaying.handler/init
          :destroy nowplaying.handler/destroy}
   :uberjar-name "nowplaying-standalone.jar"
-  :main ^:skip-aot nowplaying.handler/main
+  :main ^:skip-aot nowplaying.handler
   :profiles
   {:production
    {:ring
