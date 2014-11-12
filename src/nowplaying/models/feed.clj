@@ -27,12 +27,7 @@
         composer ((entry "composer") "name")]
     (hash-map :title title :composer composer)))
 
-(defn q2-raw
-  "get feed for Q2 Music"
-  []
-  (translate-q2 (get-json (slurp q2-url))))
-
-(defn q2 [] (wrap-feed-errors q2-raw))
+(defn q2 [] (wrap-feed-errors #(-> q2-url slurp get-json translate-q2)))
 
 (defn translate-counterstream
   "translate parsed XML into title and composer for Counterstream Radio"
@@ -42,12 +37,7 @@
         composer (-> entry :content (get 1) :content first)]
     (hash-map :title title :composer composer)))
 
-(defn counterstream-raw
-  "get feed for Counterstream Radio"
-  []
-  (-> counterstream-url xml/parse translate-counterstream))
-
-(defn counterstream [] (wrap-feed-errors counterstream-raw))
+(defn counterstream [] (wrap-feed-errors #(-> counterstream-url xml/parse translate-counterstream)))
 
 (defn translate-earwaves
   "translate parsed XML into title and composer for Earwaves"
@@ -57,12 +47,7 @@
         composer (-> entry (get 1) :content first)]
     (hash-map :title title :composer composer)))
  
-(defn earwaves-raw
-  "get feed for Earwaves"
-  []
-  (-> earwaves-url xml/parse translate-earwaves))
-
-(defn earwaves [] (wrap-feed-errors earwaves-raw))
+(defn earwaves [] (wrap-feed-errors #(-> earwaves-url xml/parse translate-earwaves)))
 
 (defn translate-yle
   "translate parsed XML into title and composer for YLE Klassinen"
@@ -72,12 +57,7 @@
         composer (-> entry :attrs :COMPOSER)]
         (hash-map :title title :composer composer)))
 
-(defn yle-raw
-  "get feed for YLE Klassinen"
-  []
-  (-> yle-url xml/parse translate-yle))
-
-(defn yle [] (wrap-feed-errors yle-raw))
+(defn yle [] (wrap-feed-errors #(-> yle-url xml/parse translate-yle)))
 
 ; composer - (-> si :content first :content (get 3) :content first)
 ; title - (-> si :content first :content (get 4) :content)
@@ -89,9 +69,4 @@
         composer (-> entry (get 3) :content first)]
         (hash-map :title title :composer composer)))
 
-(defn second-inversion-raw
-  "get feed for Second Inversion"
-  []
-  (-> second-inversion-url xml/parse translate-second-inversion))
-
-(defn second-inversion [] (wrap-feed-errors second-inversion-raw))
+(defn second-inversion [] (wrap-feed-errors #(-> second-inversion-url xml/parse translate-second-inversion)))
