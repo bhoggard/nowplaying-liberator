@@ -19,6 +19,16 @@
     (f)
     (catch Exception e (hash-map :title "" :composer ""))))
 
+(defn process-json-feed
+  "given a url and a translate function, process a json feed"
+  [url translation-fn]
+  (wrap-feed-errors #(-> url slurp get-json translation-fn)))
+
+(defn process-xml-feed
+  "given a url and a translate function, process an xml feed"
+  [url translation-fn]
+  (wrap-feed-errors #(-> url xml/parse translation-fn)))
+
 (defn translate-q2
   "translate parsed JSON into title and composer for Q2 Music"
   [data]
@@ -27,7 +37,7 @@
         composer ((entry "composer") "name")]
     (hash-map :title title :composer composer)))
 
-(defn q2 [] (wrap-feed-errors #(-> q2-url slurp get-json translate-q2)))
+(defn q2 [] (process-json-feed q2-url translate-q2))
 
 (defn translate-counterstream
   "translate parsed XML into title and composer for Counterstream Radio"
@@ -37,7 +47,7 @@
         composer (-> entry :content (get 1) :content first)]
     (hash-map :title title :composer composer)))
 
-(defn counterstream [] (wrap-feed-errors #(-> counterstream-url xml/parse translate-counterstream)))
+(defn counterstream [] (process-xml-feed counterstream-url translate-counterstream))
 
 (defn translate-earwaves
   "translate parsed XML into title and composer for Earwaves"
@@ -47,7 +57,7 @@
         composer (-> entry (get 1) :content first)]
     (hash-map :title title :composer composer)))
  
-(defn earwaves [] (wrap-feed-errors #(-> earwaves-url xml/parse translate-earwaves)))
+(defn earwaves [] (process-xml-feed earwaves-url translate-earwaves))
 
 (defn translate-yle
   "translate parsed XML into title and composer for YLE Klassinen"
@@ -57,10 +67,8 @@
         composer (-> entry :attrs :COMPOSER)]
         (hash-map :title title :composer composer)))
 
-(defn yle [] (wrap-feed-errors #(-> yle-url xml/parse translate-yle)))
+(defn yle [] (process-xml-feed yle-url translate-yle))
 
-; composer - (-> si :content first :content (get 3) :content first)
-; title - (-> si :content first :content (get 4) :content)
 (defn translate-second-inversion
   "translate parsed XML into title and composer for Second Inversion"
   [data]
@@ -69,4 +77,4 @@
         composer (-> entry (get 3) :content first)]
         (hash-map :title title :composer composer)))
 
-(defn second-inversion [] (wrap-feed-errors #(-> second-inversion-url xml/parse translate-second-inversion)))
+(defn second-inversion [] (process-xml-feed second-inversion-url translate-second-inversion))
