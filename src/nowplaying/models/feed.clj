@@ -8,23 +8,23 @@
 (def second-inversion-url "http://filesource.abacast.com/king/TRE/inversion2.xml")
 (def yle-url "http://yle.fi/radiomanint/LiveXML/r17/item(0).xml")
 
-(defn get-json
+(defn- get-json
   [response]
   (json/read-str response))
 
-(defn wrap-feed-errors
+(defn- wrap-feed-errors
   "wrap outside http calls so we can trap them"
   [f]
   (try
     (f)
     (catch Exception e (hash-map :title "" :composer ""))))
 
-(defn process-json-feed
+(defn- process-json-feed
   "given a url and a translate function, process a json feed"
   [url translation-fn]
   (wrap-feed-errors #(-> url slurp get-json translation-fn)))
 
-(defn process-xml-feed
+(defn- process-xml-feed
   "given a url and a translate function, process an xml feed"
   [url translation-fn]
   (wrap-feed-errors #(-> url xml/parse translation-fn)))
@@ -56,7 +56,7 @@
         title (-> entry (get 2) :content first)
         composer (-> entry (get 1) :content first)]
     (hash-map :title title :composer composer)))
- 
+
 (defn earwaves [] (process-xml-feed earwaves-url translate-earwaves))
 
 (defn translate-yle
