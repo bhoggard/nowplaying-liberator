@@ -63,8 +63,8 @@
   "translate parsed XML into title and composer for YLE Klassinen"
   [data]
   (let [entry (-> data :content first)
-        title (-> entry  :content first :content first :content first)
-        composer (-> entry :attrs :COMPOSER)]
+        title (-> entry :attrs :TITLE)
+        composer (-> entry :content first :content second :content second :content first)]
         (hash-map :title title :composer composer)))
 
 (defn yle [] (process-xml-feed yle-url translate-yle))

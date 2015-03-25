@@ -26,5 +26,5 @@
 
   (testing "yle parsing"
   (let [data (translate-yle (xml/parse "test/data/yle.xml"))]
-    (is (= (:title data) "Godard: Pianokonsertto n:o 1 a-molli. (Howard Shelley ja Tasmanian SO)."))
-    (is (= (:composer data) "Godard, Benjamin [1849-1895]")))))
+    (is (= (:title data) "Noiduttu rakkaus (El Amor brujo) 1-näytöksinen baletti "))
+    (is (= (:composer data) "Falla, Manuel de [1876-1946]")))))
