@@ -26,5 +26,5 @@
 
   (testing "yle parsing"
   (let [data (translate-yle (xml/parse "test/data/yle.xml"))]
-    (is (= (:title data) "Noiduttu rakkaus (El Amor brujo) 1-näytöksinen baletti "))
-    (is (= (:composer data) "Falla, Manuel de [1876-1946]")))))
+    (is (= (:title data) "Sinfonia n:o 103 (8. Lontoon sinfonia) Es-duuri Hob.I:103 (Mit dem Paukenwirbel /Drum droll, Rummunpäristys- l. Patarumpusinfonia). 1. Adagio - Allegro con spirito /8:47. 2. Andante piu tosto allegretto /10:59. 3. Menuetti - Trio /4:54. 4. Allegro con sp"))
+    (is (= (:composer data) "Haydn, Joseph [1732-1809]")))))
